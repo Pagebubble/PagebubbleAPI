@@ -20,6 +20,9 @@ var UserSchema = new Schema({
       }
     }
   },
+  profileUrl: String,
+  photo: String,
+  gender: String,
   role: {
     type: String,
     default: 'user'

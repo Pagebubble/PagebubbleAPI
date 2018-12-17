@@ -6,9 +6,13 @@ export function setup(User, config) {
     clientID: config.facebook.clientID,
     clientSecret: config.facebook.clientSecret,
     callbackURL: config.facebook.callbackURL,
+    profileURL: 'https://graph.facebook.com/v3.2/me',
     profileFields: [
       'displayName',
-      'emails'
+      'emails',
+      'profileUrl',
+      'photos',
+      'gender'
     ]
   },
   function(accessToken, refreshToken, profile, done) {
@@ -20,7 +24,10 @@ export function setup(User, config) {
 
         user = new User({
           name: profile.displayName,
-          email: profile.emails[0].value,
+          email: profile.emails && profile.emails[0] && profile.emails[0].value,
+          profileUrl: profile.profileUrl,
+          photo: profile.photos && profile.photos[0] && profile.photos[0].value,
+          gender: profile.gender,
           role: 'user',
           provider: 'facebook',
           facebook: profile._json
