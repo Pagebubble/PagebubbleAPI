@@ -3,6 +3,7 @@
 import crypto from 'crypto';
 mongoose.Promise = require('bluebird');
 import mongoose, {Schema} from 'mongoose';
+import timestamps from 'mongoose-timestamp';
 import {registerEvents} from './user.events';
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
@@ -257,5 +258,6 @@ UserSchema.methods = {
   }
 };
 
+UserSchema.plugin(timestamps);
 registerEvents(UserSchema);
 export default mongoose.model('User', UserSchema);
